@@ -16,8 +16,8 @@ const TradesSchema = new Schema({
   rgl: {type: Number},
   comments: {type: String},
   tv: {type: String},
-  membership: {type: Boolean, default: false},
+  public: {type: Boolean, default: false},
 }, { timestamps:true })
 
 
-module.exports = mongoose.model('Trades', TradesSchema)
+module.exports = mongoose.model('Trades', TradesSchema) 

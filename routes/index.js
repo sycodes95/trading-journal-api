@@ -14,6 +14,10 @@ router.post('/login', users_controller.log_in_post)
 
 router.get('/logout', users_controller.log_out_get)
 
+router.get('/verifytoken', users_controller.verify_token_get)
+
+router.post('/newtrade', trades_controller.new_trade_post)
+
 
 
 module.exports = router;

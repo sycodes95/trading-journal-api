@@ -20,16 +20,30 @@ require('dotenv').config()
 
 //------------------------------------------------
 
-function verifyToken(req,res,next) {
+exports.verify_token_get = (req,res,next) => {
   const bearerHeader = req.headers['authorization'];
+  
   if(typeof bearerHeader !== 'undefined'){
     const bearer = bearerHeader.split(' ')
     const bearerToken = bearer[1];
-    req.token = bearerToken
-    next()
+    
+    jwt.verify(bearerToken, process.env.JWT_SECRETKEY, (err, user)=>{
+      console.log(err);
+      if(err) {
+        return res.status(401).json({error: "Invalid token"});
+      } else {
+        res.json({
+          message: 'User authorized',
+          user
+        })
+      }
+    })
+    
   } else {
-    res.sendStatus(403)
+    return res.status(401).json({error: "Invalid token"});
   }
+
+  
 }
 
 //------------------------------------------------
@@ -98,7 +112,7 @@ exports.log_in_post = (req, res, next) =>{
       return next(err)
     }
     if(!user){
-      return res.json('/login')
+      return res.json('nouser')
     }
     req.logIn(user, (err) =>{
       if(err) {
@@ -119,4 +133,6 @@ exports.log_out_get = (req,res,next) =>{
     res.json({logout: 'Log out successful'})
   })
 }
+
+
 
