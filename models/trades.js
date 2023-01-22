@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const TradesSchema = new Schema({
   username: {type: String, required: true, maxlength: 50},
   current: {type: Boolean, required: true, default:true},
+  instrument: {type: String, required: true, index: true},
   setup: {type: String, required: true, index: true},
   entry: {type: Number, required: true},
   tp: {type: Number},
@@ -16,6 +17,7 @@ const TradesSchema = new Schema({
   rgl: {type: Number},
   comments: {type: String},
   tv: {type: String},
+  variables: {type: Array},
   public: {type: Boolean, default: false},
 }, { timestamps:true })
 
