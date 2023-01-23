@@ -1,44 +1,43 @@
-const Setups = require('../models/setups')
+const Instruments = require('../models/instruments')
 
 const async = require("async")
 
 require('dotenv').config()
 
-exports.new_setup_post = async (req,res,next) =>{
-  const userSetups = await Setups.countDocuments({username: req.body.username});
+exports.new_instrument_post = async (req,res,next) =>{
+  const userInstruments = await Instruments.countDocuments({username: req.body.username});
   
-  if(userSetups > 19){
-    return res.status(400).json({error: 'User reached maximum setups'})
+  if(userInstruments > 49){
+    return res.status(400).json({error: 'User reached maximum instruments'})
   }
-  const setup = new Setups({
-    
+  const instrument = new Instruments({
+
     username: req.body.username,
-    setup: req.body.setup,
-    active: req.body.active 
+    instrument: req.body.instrument,
 
   }).save((err, result) => {
     console.log('hi');
     if (err) {
       return res.json({error: err});
     }
-    res.json({setup: result});
+    res.json({instrument: result});
         console.log(result);
   });
 }
 
-exports.setup_get = (req,res,next) =>{
+exports.instrument_get = (req,res,next) =>{
   
-  Setups.find({username: req.query.username}).sort({_id:-1}).exec((err, docs) => {
+  Instruments.find({username: req.query.username}).sort({_id:-1}).exec((err, docs) => {
     if(err) {
       return res.json({errors: err});
     }
     console.log(docs);
-    res.json({setups: docs})
+    res.json({instruments: docs})
   })
 }
-exports.setup_delete = (req,res,next) =>{
+exports.instrument_delete = (req,res,next) =>{
   console.log(req.body.id);
-  Setups.findByIdAndRemove(req.body.id)
+  Instruments.findByIdAndRemove(req.body.id)
     .then(item =>{
       if(!item) {
         return res.status(404).send({
@@ -57,9 +56,9 @@ exports.setup_delete = (req,res,next) =>{
       });
     })
 }
-
-exports.setup_active_patch = (req,res,next) =>{
-  Setups.findOne({_id: req.body.id}, (err,doc) => {
+/*
+exports.instrument_active_patch = (req,res,next) =>{
+  instruments.findOne({_id: req.body.id}, (err,doc) => {
     if(err) {
       return res.json({error: err})
     } else {
@@ -76,3 +75,4 @@ exports.setup_active_patch = (req,res,next) =>{
     
     
 }
+*/

@@ -5,6 +5,7 @@ const users_controller = require('../controllers/usersController')
 const trades_controller = require('../controllers/tradesController')
 const trading_rules_controller = require('../controllers/tradingRulesController')
 const setups_controller = require('../controllers/setupsController')
+const instruments_controller = require('../controllers/instrumentsController')
 
 /* GET home page. */
 
@@ -24,8 +25,16 @@ router.post('/tradingrules', )
 
 router.post('/newsetup', setups_controller.new_setup_post)
 
-router.get('/setups', setups_controller.setup_get)
+router.get('/getsetups', setups_controller.setup_get)
 
-router.delete('/setups', setups_controller.setup_delete)
+router.delete('/deletesetups', setups_controller.setup_delete)
+
+router.patch('/patchsetups', setups_controller.setup_active_patch)
+
+router.post('/newinstrument', instruments_controller.new_instrument_post)
+
+router.get('/getinstruments', instruments_controller.instrument_get)
+
+router.delete('/deleteinstruments', instruments_controller.instrument_delete)
 
 module.exports = router;
