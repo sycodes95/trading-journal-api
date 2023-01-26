@@ -21,19 +21,24 @@ exports.new_trade_post = (req,res,next) =>{
   const trade = new Trades({
 
     username: req.body.username,
-    current: req.body.current,
+    open: req.body.open,
+    entrydate: req.body.entrydate,
+    instrument: req.body.instrument,
     setup: req.body.setup,
     position: req.body.position,
+    plannedentry: req.body.plannedentry,
     entry: req.body.entry,
     tp: req.body.tp,
     sl: req.body.sl,
+    exitdate: req.body.exitdate,
+    exit: req.body.exitprice,
     mfe: req.body.mfe,
     mae: req.body.mae,
-    result: req.body.result,
     fgl: req.body.fgl,
-    rgl: req.body.rgl,
+    fees: req.body.fees,
     comments: req.body.comments,
     tv: req.body.tv,
+    variables: req.body.variables,
     public: req.body.public,
 
   }).save((err, result) => {
@@ -43,4 +48,17 @@ exports.new_trade_post = (req,res,next) =>{
     res.json({trade: result});
         console.log(trade);
   });
+}
+
+exports.trade_post = (req,res,next) =>{
+
+  Trades.findOneAndUpdate({username: req.body.username, _id: req.body.id},
+    { $set: req.body }, {new:true, upsert:true}, (err,doc)=>{
+    
+    if (err) {
+      return res.json({error: err})
+    } else {
+      res.json({updated: doc})
+    }
+  })
 }

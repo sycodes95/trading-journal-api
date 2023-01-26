@@ -42,6 +42,10 @@ router.post('/new-variables-list', variableList_controller.variables_list_post)
 
 router.get('/get-variables-list', variableList_controller.variables_list_get)
 
+router.delete('/delete-variables-list', variableList_controller.variables_list_delete)
 
+router.post('/trade-post', trades_controller.trade_post)
+
+router.post('/new-trade-post', trades_controller.new_trade_post)
 
 module.exports = router;

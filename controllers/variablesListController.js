@@ -28,3 +28,13 @@ exports.variables_list_get = (req,res,next) =>{
     res.json({listVariables: result})
   })
 }
+
+exports.variables_list_delete = (req,res,next) => {
+  VariablesList.findOneAndRemove({username: req.body.username, listIndex: req.body.listIndex}, (err,doc)=>{
+    if (err) {
+      return res.json({error: err})
+    } else {
+      res.json({updated: doc})
+    }
+  })
+}
