@@ -62,3 +62,16 @@ exports.trade_post = (req,res,next) =>{
     }
   })
 }
+
+exports.trades_get = (req,res,next) =>{
+
+  Trades.find({username: req.query.username}).sort({entrydate:-1}).exec((err, result) =>{
+    if(err) {
+      return res.json({error: err});
+    }
+    
+    res.json({trades: result})
+  })
+  
+    
+}

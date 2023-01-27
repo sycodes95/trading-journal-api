@@ -22,7 +22,7 @@ exports.variables_list_get = (req,res,next) =>{
   console.log(req.query.username);
   VariablesList.find({username: req.query.username}).sort({listIndex:1}).exec((err, result) => {
     if(err) {
-      return res.json({errors: err});
+      return res.json({error: err});
     }
     
     res.json({listVariables: result})

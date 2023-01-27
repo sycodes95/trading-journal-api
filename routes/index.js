@@ -48,4 +48,6 @@ router.post('/trade-post', trades_controller.trade_post)
 
 router.post('/new-trade-post', trades_controller.new_trade_post)
 
+router.get('/trades-get', trades_controller.trades_get)
+
 module.exports = router;
