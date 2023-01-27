@@ -19,8 +19,8 @@ exports.variables_list_post = (req,res,next) =>{
 }
 
 exports.variables_list_get = (req,res,next) =>{
-  
-  VariablesList.find({username: req.query.username}).sort({listIndex:-1}).exec((err, result) => {
+  console.log(req.query.username);
+  VariablesList.find({username: req.query.username}).sort({listIndex:1}).exec((err, result) => {
     if(err) {
       return res.json({errors: err});
     }

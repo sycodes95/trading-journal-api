@@ -43,7 +43,7 @@ exports.new_trade_post = (req,res,next) =>{
 
   }).save((err, result) => {
     if (err) {
-      return res.json({errors: err});
+      return res.json({error: err});
     }
     res.json({trade: result});
         console.log(trade);
