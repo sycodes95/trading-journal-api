@@ -101,6 +101,25 @@ exports.trades_search = (req,res,next)=>{
   })
 }
 */
+
+exports.trade_sort_get = (req,res,next) =>{
+  console.log(req.query.field);
+  console.log(req.query.sortBy);
+  
+  const field = req.query.field
+  const sortBy = parseInt(req.query.sortBy)
+  
+  Trades.find({username: req.query.username}).sort({[field]: sortBy }).exec((err, result) =>{
+    if(err) {
+      return res.json({error: err});
+    }
+    
+    res.json({trades: result})
+  })
+  
+  
+    
+}
 exports.trades_search = (req,res,next)=>{
   
   console.log(req.query);

@@ -54,4 +54,6 @@ router.delete('/trade-delete', trades_controller.trade_delete)
 
 router.get('/trades-search', trades_controller.trades_search)
 
+router.get('/trades-sort-get', trades_controller.trade_sort_get)
+
 module.exports = router;
