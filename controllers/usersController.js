@@ -129,7 +129,10 @@ exports.log_in_post = (req, res, next) =>{
 
 exports.log_out_get = (req,res,next) =>{
   req.logout(function (err){
-    if(err) return next(err)
+    if(err) {
+      return res.json({error: err})
+    }
+    res.clearCookie('token');
     res.json({logout: 'Log out successful'})
   })
 }

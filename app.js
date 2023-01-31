@@ -19,6 +19,8 @@ const users = require('./models/users');
 
 const app = express();
 
+
+
 const mongoDB = process.env.MONGO_URL
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -38,7 +40,9 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors())
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

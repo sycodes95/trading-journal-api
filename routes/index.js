@@ -50,4 +50,8 @@ router.post('/new-trade-post', trades_controller.new_trade_post)
 
 router.get('/trades-get', trades_controller.trades_get)
 
+router.delete('/trade-delete', trades_controller.trade_delete)
+
+router.get('/trades-search', trades_controller.trades_search)
+
 module.exports = router;

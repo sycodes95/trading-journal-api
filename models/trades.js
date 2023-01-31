@@ -25,5 +25,11 @@ const TradesSchema = new Schema({
   public: {type: Boolean, default: false},
 }, { timestamps:true })
 
+const index = {};
+Object.keys(TradesSchema.obj).forEach(field => {
+  index[field] = "text";
+});
+TradesSchema.index(index, {collation: {locale: "en_US", strength: 1}});
+
 
 module.exports = mongoose.model('Trades', TradesSchema) 
