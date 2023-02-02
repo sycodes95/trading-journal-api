@@ -24,19 +24,30 @@ exports.new_trade_post = (req,res,next) =>{
     username: req.body.username,
     open: req.body.open,
     entrydate: req.body.entrydate,
+    entrydateString: req.body.entrydate,
     instrument: req.body.instrument,
     setup: req.body.setup,
     position: req.body.position,
     plannedentry: req.body.plannedentry,
+    plannedentryString: req.body.plannedentry,
     entry: req.body.entry,
+    entryString: req.body.entry,
     tp: req.body.tp,
+    tpString: req.body.tp,
     sl: req.body.sl,
+    slString: req.body.sl,
     exitdate: req.body.exitdate,
+    exitdateString: req.body.exitdate,
     exit: req.body.exitprice,
+    exitString: req.body.exitprice,
     mfe: req.body.mfe,
+    mfeString: req.body.mfe,
     mae: req.body.mae,
+    maeString: req.body.mae,
     fgl: req.body.fgl,
+    fglString: req.body.fgl,
     fees: req.body.fees,
+    feesString: req.body.fees,
     comments: req.body.comments,
     tv: req.body.tv,
     variables: req.body.variables,
@@ -127,33 +138,26 @@ exports.trades_search = (req,res,next)=>{
   Trades.find({ 
     username: req.query.username,
     $or: [
-      {variables: { $regex: req.query.searchInput, $options: 'i' }},
-      {setup: { $regex: req.query.searchInput, $options: 'i' }},
-      
-    ]
-    
-    /*
-    $or: [
-      
-      
+      {open: { $regex: req.query.searchInput, $options: 'i'}},
+      {entrydateString: { $regex: req.query.searchInput, $options: 'i'}},
       {instrument: { $regex: req.query.searchInput, $options: 'i' }},
       {setup: { $regex: req.query.searchInput, $options: 'i' }},
       {position: { $regex: req.query.searchInput, $options: 'i' }},
-      {plannedentry: { $eq: req.query.searchInput, $options: 'i' }},
-      {entry: { $eq: req.query.searchInput, $options: 'i' }},
-      {tp: { $eq: req.query.searchInput, $options: 'i' }},
-      {sl: { $eq: req.query.searchInput, $options: 'i' }},
-      
-      {exit: { $eq: req.query.searchInput, $options: 'i' }},
-      {mfe: { $eq: req.query.searchInput, $options: 'i' }},
-      {mae: { $eq: req.query.searchInput, $options: 'i' }},
-      {fgl: { $eq: req.query.searchInput, $options: 'i' }},
-      {fees: { $eq: req.query.searchInput, $options: 'i' }},
+      {plannedentryString: { $regex: req.query.searchInput, $options: 'i' }},
+      {entryString: { $regex: req.query.searchInput, $options: 'i' }},
+      {tpString: { $regex: req.query.searchInput, $options: 'i' }},
+      {slString: { $regex: req.query.searchInput, $options: 'i' }},
+      {exitdateString: { $regex: req.query.searchInput, $options: 'i' }},
+      {exitString: { $regex: req.query.searchInput, $options: 'i' }},
+      {mfeString: { $regex: req.query.searchInput, $options: 'i' }},
+      {maeString: { $regex: req.query.searchInput, $options: 'i' }},
+      {fglString: { $regex: req.query.searchInput, $options: 'i' }},
+      {feesString: { $regex: req.query.searchInput, $options: 'i' }},
       {variables: { $regex: req.query.searchInput, $options: 'i' }},
       {comments: { $regex: req.query.searchInput, $options: 'i' }},
       {tv: { $regex: req.query.searchInput, $options: 'i' }},
     ],
-    */
+    
     
   }).exec((err, result)=>{
     if(err){
