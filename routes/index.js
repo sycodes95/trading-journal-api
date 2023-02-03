@@ -56,6 +56,6 @@ router.get('/trades-search', trades_controller.trades_search)
 
 router.get('/trades-sort-get', trades_controller.trade_sort_get)
 
-router.get('/trades-count', trades_controller.trades_count)
+
 
 module.exports = router;

@@ -101,7 +101,7 @@ exports.trades_get = (req,res,next) =>{
   
     
 }
-
+/*
 exports.trades_count = (req,res,next) =>{
   Trades.countDocuments({username: req.query.username}).exec((err, docs) =>{
     if(err) {
@@ -111,6 +111,7 @@ exports.trades_count = (req,res,next) =>{
     res.json({docs})
   })
 }
+*/
 
 exports.trade_delete = (req,res,next) =>{
   
@@ -143,14 +144,27 @@ exports.trade_sort_get = (req,res,next) =>{
   
   const field = req.query.field
   const sortBy = parseInt(req.query.sortBy)
-  
-  Trades.find({username: req.query.username}).sort({[field]: sortBy }).exec((err, result) =>{
+
+  Trades.countDocuments({username: req.query.username})
+  .exec((err, count) =>{
     if(err) {
       return res.json({error: err});
     }
     
-    res.json({trades: result})
+    Trades.find({username: req.query.username})
+    .sort({[field]: sortBy })
+    .limit(req.query.limit)
+    .skip(req.query.skip)
+    .exec((err, result) =>{
+      if(err) {
+        return res.json({error: err});
+      }
+      
+      res.json({trades: result, count})
+    })
   })
+  
+ 
   
   
     
