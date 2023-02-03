@@ -14,6 +14,7 @@ const { check, body, validationResult } = require("express-validator");
 
 const jwt = require('jsonwebtoken');
 const { json } = require('express');
+const tradingRules = require('../models/tradingRules');
 
 require('dotenv').config()
 
@@ -76,16 +77,39 @@ exports.trade_post = (req,res,next) =>{
 }
 
 exports.trades_get = (req,res,next) =>{
-  console.log(req.query.username);
-  Trades.find({username: req.query.username}).sort({entrydate:-1}).exec((err, result) =>{
+  Trades.countDocuments({username: req.query.username})
+  .exec((err, count) =>{
     if(err) {
       return res.json({error: err});
     }
     
-    res.json({trades: result})
+    Trades.find({username: req.query.username})
+    .sort({entrydate:-1})
+    .limit(req.query.limit)
+    .skip(req.query.skip)
+    .exec((err, result) =>{
+      if(err) {
+        return res.json({error: err});
+      }
+      
+      res.json({trades: result, count})
+    })
   })
   
+  console.log(req.query.username);
+  
+  
     
+}
+
+exports.trades_count = (req,res,next) =>{
+  Trades.countDocuments({username: req.query.username}).exec((err, docs) =>{
+    if(err) {
+      return res.json({error: err});
+    }
+    
+    res.json({docs})
+  })
 }
 
 exports.trade_delete = (req,res,next) =>{
@@ -134,8 +158,7 @@ exports.trade_sort_get = (req,res,next) =>{
 exports.trades_search = (req,res,next)=>{
   
   console.log(req.query);
-  
-  Trades.find({ 
+  Trades.countDocuments({ 
     username: req.query.username,
     $or: [
       {open: { $regex: req.query.searchInput, $options: 'i'}},
@@ -159,11 +182,47 @@ exports.trades_search = (req,res,next)=>{
     ],
     
     
-  }).exec((err, result)=>{
+  })
+  .exec((err, count)=>{
     if(err){
       return res.json({error:err})
     }
-    res.json({result})
+    Trades.find({ 
+      username: req.query.username,
+      $or: [
+        {open: { $regex: req.query.searchInput, $options: 'i'}},
+        {entrydateString: { $regex: req.query.searchInput, $options: 'i'}},
+        {instrument: { $regex: req.query.searchInput, $options: 'i' }},
+        {setup: { $regex: req.query.searchInput, $options: 'i' }},
+        {position: { $regex: req.query.searchInput, $options: 'i' }},
+        {plannedentryString: { $regex: req.query.searchInput, $options: 'i' }},
+        {entryString: { $regex: req.query.searchInput, $options: 'i' }},
+        {tpString: { $regex: req.query.searchInput, $options: 'i' }},
+        {slString: { $regex: req.query.searchInput, $options: 'i' }},
+        {exitdateString: { $regex: req.query.searchInput, $options: 'i' }},
+        {exitString: { $regex: req.query.searchInput, $options: 'i' }},
+        {mfeString: { $regex: req.query.searchInput, $options: 'i' }},
+        {maeString: { $regex: req.query.searchInput, $options: 'i' }},
+        {fglString: { $regex: req.query.searchInput, $options: 'i' }},
+        {feesString: { $regex: req.query.searchInput, $options: 'i' }},
+        {variables: { $regex: req.query.searchInput, $options: 'i' }},
+        {comments: { $regex: req.query.searchInput, $options: 'i' }},
+        {tv: { $regex: req.query.searchInput, $options: 'i' }},
+      ],
+      
+      
+    })
+    .limit(req.query.limit)
+    .skip(req.query.skip)
+    .exec((err, result)=>{
+      if(err){
+        return res.json({error:err})
+      }
+      res.json({result, count})
+    })
+    
   })
+  
+  
   
 }
