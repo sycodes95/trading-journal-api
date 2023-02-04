@@ -56,6 +56,8 @@ router.get('/trades-search', trades_controller.trades_search)
 
 router.get('/trades-sort-get', trades_controller.trade_sort_get)
 
+router.get('/trades-get-month', trades_controller.trades_get_month)
+
 
 
 module.exports = router;

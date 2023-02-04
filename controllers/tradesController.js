@@ -97,8 +97,32 @@ exports.trades_get = (req,res,next) =>{
   })
   
   console.log(req.query.username);
+    
+}
+
+exports.trades_get_month = (req,res,next) =>{
+  const date = new Date();
+  const lastMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+  console.log(date, lastMonth);
   
+  Trades.countDocuments({username: req.query.username})
+  .exec((err, count) =>{
+    if(err) {
+      return res.json({error: err});
+    }
+    
+    Trades.find({username: req.query.username, entrydate: { $gte: lastMonth, $lte: date}})
+    .sort({entrydate:-1})
+    .exec((err, result) =>{
+      if(err) {
+        return res.json({error: err});
+      }
+      
+      res.json({trades: result, count})
+    })
+  })
   
+  console.log(req.query.username);
     
 }
 /*
