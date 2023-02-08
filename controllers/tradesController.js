@@ -103,7 +103,6 @@ exports.trades_get = (req,res,next) =>{
 exports.trades_get_month = (req,res,next) =>{
   const date = new Date();
   const lastMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
-  console.log(date, lastMonth);
   
   Trades.countDocuments({username: req.query.username})
   .exec((err, count) =>{
@@ -121,9 +120,27 @@ exports.trades_get_month = (req,res,next) =>{
       res.json({trades: result, count})
     })
   })
+}
+
+exports.trades_get_week = (req,res,next) =>{
+  const date = new Date();
+  const lastWeek = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate() - 7);
   
-  console.log(req.query.username);
-    
+  Trades.countDocuments({username: req.query.username})
+  .exec((err, count) =>{
+    if(err) {
+      return res.json({error: err});
+    }
+    Trades.find({username: req.query.username, entrydate: { $gte: lastWeek, $lte: date}})
+    .sort({entrydate:-1})
+    .exec((err, result) =>{
+      if(err) {
+        return res.json({error: err});
+      }
+      
+      res.json({trades: result, count})
+    })
+  })
 }
 /*
 exports.trades_count = (req,res,next) =>{
