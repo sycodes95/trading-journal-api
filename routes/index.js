@@ -62,6 +62,8 @@ router.get('/trades-get-month', trades_controller.trades_get_month)
 
 router.get('/trades-get-week', trades_controller.trades_get_week)
 
+router.get('/trades-search-variables', trades_controller.trades_search_variables)
+
 
 
 module.exports = router;

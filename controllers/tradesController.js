@@ -204,12 +204,22 @@ exports.trade_sort_get = (req,res,next) =>{
       res.json({trades: result, count})
     })
   })
-  
- 
-  
-  
-    
 }
+
+exports.trades_search_variables = (req, res, next) =>{
+  
+  console.log(req.query.searchInputVariable);
+  Trades.find({
+    username: req.query.username,
+    variables: {$elemMatch: {title : req.query.searchInputTitle, variable:req.query.searchInputVariable}}
+  }).exec((err, trades) =>{
+    if(err){
+      return res.json({error:err})
+    }
+    res.json({trades})
+  })
+}
+
 exports.trades_search = (req,res,next)=>{
   
   console.log(req.query);
