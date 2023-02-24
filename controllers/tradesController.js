@@ -327,3 +327,22 @@ exports.trades_search = (req,res,next)=>{
   
   
 }
+
+exports.trades_edit_variables = (req, res, next) => {
+  Trades.updateMany(
+    { 
+      username: req.query.username, 
+      'variables.title': req.body.variables.previousTitle 
+    },
+    { 
+      $set: { 'variables.$.title': req.body.variables.newTitle } 
+    },
+    { new: true },
+    (err, trades) => {
+      if (err) {
+        return res.json({ error: err });
+      }
+      res.json({ trades });
+    }
+  );
+};
