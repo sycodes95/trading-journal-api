@@ -39,8 +39,8 @@ exports.new_trade_post = (req,res,next) =>{
     slString: req.body.sl,
     exitdate: req.body.exitdate,
     exitdateString: req.body.exitdate,
-    exit: req.body.exitprice,
-    exitString: req.body.exitprice,
+    exit: req.body.exit,
+    exitString: req.body.exit,
     mfe: req.body.mfe,
     mfeString: req.body.mfe,
     mae: req.body.mae,
@@ -66,7 +66,42 @@ exports.new_trade_post = (req,res,next) =>{
 exports.trade_post = (req,res,next) =>{
   console.log(req.body);
   Trades.findOneAndUpdate({username: req.body.username, _id: req.body._id},
-    { $set: req.body }, {new:true, upsert:true}, (err,doc)=>{
+    { $set: 
+      {
+      username: req.body.username,
+      open: req.body.open,
+      entrydate: req.body.entrydate,
+      entrydateString: req.body.entrydate,
+      instrument: req.body.instrument,
+      setup: req.body.setup,
+      position: req.body.position,
+      plannedentry: req.body.plannedentry,
+      plannedentryString: req.body.plannedentry,
+      entry: req.body.entry,
+      entryString: req.body.entry,
+      tp: req.body.tp,
+      tpString: req.body.tp,
+      sl: req.body.sl,
+      slString: req.body.sl,
+      exitdate: req.body.exitdate,
+      exitdateString: req.body.exitdate,
+      exit: req.body.exit,
+      exitString: req.body.exit,
+      mfe: req.body.mfe,
+      mfeString: req.body.mfe,
+      mae: req.body.mae,
+      maeString: req.body.mae,
+      fgl: req.body.fgl,
+      fglString: req.body.fgl,
+      fees: req.body.fees,
+      feesString: req.body.fees,
+      comments: req.body.comments,
+      tv: req.body.tv,
+      variables: req.body.variables,
+      public: req.body.public,
+      }  
+    },
+    {new:true, upsert:true}, (err,doc)=>{
     
     if (err) {
       return res.json({error: err})

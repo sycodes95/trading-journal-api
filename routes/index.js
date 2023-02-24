@@ -26,7 +26,7 @@ router.post('/tradingrules', )
 
 router.post('/newsetup', setups_controller.new_setup_post)
 
-router.get('/getsetups', setups_controller.setup_get)
+router.get('/get-setups', setups_controller.setup_get)
 
 router.delete('/deletesetups', setups_controller.setup_delete)
 

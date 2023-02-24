@@ -54,6 +54,7 @@ exports.sign_up_get = (req, res) =>{
 */
 
 exports.sign_up_post = [
+  body('username').isEmail(),
   check('password').exists(),
   check('confirm_password')
     .exists()
@@ -68,7 +69,7 @@ exports.sign_up_post = [
     console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+      return res.status(422).json({ validationError: errors });
     }
     const plainPassword = req.body.password
     console.log(plainPassword);
