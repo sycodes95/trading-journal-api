@@ -328,6 +328,8 @@ exports.trades_search = (req,res,next)=>{
   
 }
 
+
+
 exports.trades_edit_variables = (req, res, next) => {
   Trades.updateMany(
     { 
@@ -346,3 +348,27 @@ exports.trades_edit_variables = (req, res, next) => {
     }
   );
 };
+
+/*
+
+exports.trades_edit_variables = (req, res, next) => {
+  Trades.updateMany(
+    { username: req.query.username},
+    {
+      $addToSet: { 'variables': { title: req.body.variables.newTitle, variable: '' } },
+      $set: { 'variables.$[elem].title': req.body.variables.newTitle },
+    },
+    { 
+      new: true, 
+      arrayFilters: [{ 'elem.title': req.body.variables.previousTitle }] 
+    },
+    (err, trades) => {
+      if (err) {
+        return res.json({ error: err });
+      }
+      res.json({ trades });
+    }
+  );
+};
+
+*/

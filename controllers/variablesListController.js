@@ -50,3 +50,13 @@ exports.variables_list_delete = (req,res,next) => {
     }
   })
 }
+
+exports.variables_list_archive_post = (req,res,next) => {
+  VariablesList.findOneAndRemove({username: req.body.username, listIndex: req.body.listIndex}, (err,doc)=>{
+    if (err) {
+      return res.json({error: err})
+    } else {
+      res.json({updated: doc})
+    }
+  })
+}
