@@ -49,6 +49,8 @@ router.delete('/delete-variables-list', variableList_controller.variables_list_d
 
 router.post('/post-variables-archive', variablesArchive_controller.variables_archive_post)
 
+router.get('/get-variables-archive', variablesArchive_controller.variables_archive_get)
+
 router.post('/trade-post', trades_controller.trade_post)
 
 router.post('/new-trade-post', trades_controller.new_trade_post)
