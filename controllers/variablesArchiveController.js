@@ -26,3 +26,15 @@ exports.variables_archive_get = (req, res, next) => {
     
   })
 }
+
+exports.variables_archive_delete = (req, res, next) => {
+  VariablesArchive.findOneAndDelete({username: req.query.username, _id: req.query._id})
+  .sort({date: -1})
+  .exec((err, result) =>{
+    if(err) {
+      return next(err)
+    }
+    res.json({result})
+    
+  })
+}

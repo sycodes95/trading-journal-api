@@ -4,9 +4,9 @@ const Users = require('../models/users')
 
 const async = require("async")
 
-const passport = require("passport");
-
 const LocalStrategy = require("passport-local").Strategy;
+
+const passport = require("passport");
 
 const bcrypt = require("bcryptjs")
 

@@ -59,9 +59,11 @@ passport.use(
       }
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
+          console.log('match');
           // passwords match! log user in
           return done(null, user)
         } else {
+          console.log('not match');
           // passwords do not match!
           return done(null, false, { message: "Incorrect password" })
         }
@@ -72,10 +74,12 @@ passport.use(
 );
 
 passport.serializeUser(function(user, done) {
+  console.log('serialize', user);
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
+  console.log('deserialize', id);
   users.findById(id, function(err, user) {
     done(err, user);
   });
