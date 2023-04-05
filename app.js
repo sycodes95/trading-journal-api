@@ -40,7 +40,11 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({credentials: true, origin: ['http://localhost:3000', 'http://localhost:3001']}));
+app.use(cors({credentials: true, origin: [
+  'http://localhost:3000', 
+  'http://localhost:3001',
+  'https://trading-journal-production.up.railway.app',
+]}));
 
 
 
