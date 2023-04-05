@@ -23,8 +23,6 @@ router.get('/verifytoken', users_controller.verify_token_get)
 
 router.post('/newtrade', trades_controller.new_trade_post)
 
-router.post('/tradingrules', )
-
 router.post('/newsetup', setups_controller.new_setup_post)
 
 router.get('/get-setups', setups_controller.setup_get)
