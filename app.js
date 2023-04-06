@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors({credentials: true, origin: [
   'http://localhost:3000', 
   'http://localhost:3001',
-  'https://trading-journal-production.up.railway.app',
+  'https://edgescout.up.railway.app',
 ]}));
 
 
